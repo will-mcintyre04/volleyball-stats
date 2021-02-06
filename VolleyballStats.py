@@ -24,14 +24,8 @@ def checkvalidity(statchoice):
             break
     return validity
 
-def statchoiceasanumber(statchoice):
-    for i in range(0, len(statsdata)):
-        if statchoice == statsdata[i]:
-            statnumber = i
-    return statnumber
-
-def percentage(positive, negative, continuous):
-    percentage = ((positive - negative) / continuous) * 100
+def percentage(positive, negative, total):
+    percentage = ((positive - negative) / total) * 100
     return percentage
 
 def splitbyspace(data):
@@ -40,20 +34,22 @@ def splitbyspace(data):
 
 def statpercentage(userinput):
     positive = 0
-    negative = 0
-    continuous = 0
+    negative = 0 
+    total = 0
     for i in range(0, len(userinput)):
-        if userinput.upper()[i] == "A" or userinput.upper() == "K":
+        if userinput[i].upper() == "A" or userinput[i].upper() == "K":
             positive = positive + 1
-        elif userinput.upper()[i] == "E":
+            total = total + 1
+        elif userinput[i].upper() == "E":
             negative = negative + 1
-        elif userinput.upper()[i] == "C":
-            continuous = continuous + 1
-    answer = percentage(positive, negative, continuous)
+            total = total + 1
+        elif userinput[i].upper() == "C":
+            total = total + 1
+    answer = percentage(positive, negative, total)
     return answer
 
 def printdata(percentage):
-    print(percentage)
+    print(percentage, "%")
 
 # Main Code
 while(True):
@@ -61,7 +57,6 @@ while(True):
     if statchoice == True:
         break
     
-statsnumber = statchoiceasanumber(statchoice)
 answer = statpercentage(splitbyspace(input("Please enter the data ('A' for ace, 'K' for kill, 'E' for error and 'C' for continuous... all seperated by space): ")))
 printdata(answer)
     

@@ -32,12 +32,12 @@ def splitbyspace(data):
     splitdata = data.split()
     return splitdata
 
-def statpercentage(userinput):
+def determinepositivenegativetotal(userinput):
     positive = 0
     negative = 0 
     total = 0
     for i in range(0, len(userinput)):
-        if userinput[i].upper() == "A" or userinput[i].upper() == "K":
+        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
             positive = positive + 1
             total = total + 1
         elif userinput[i].upper() == "E":
@@ -45,20 +45,45 @@ def statpercentage(userinput):
             total = total + 1
         elif userinput[i].upper() == "C":
             total = total + 1
+    return positive, negative, total
+
+def hittingpercentage():
+    userinput = splitbyspace(input("Please enter the data ('K' for kill, 'E' for error and 'C' for continuous... all seperated by space): "))
+    positivenegativetotal = determinepositivenegativetotal(userinput)
+    positive = positivenegativetotal[0]
+    negative = positivenegativetotal[1]
+    total = positivenegativetotal[2]
     answer = percentage(positive, negative, total)
     return answer
 
-def printdata(percentage):
+def servepercentage():
+    userinput = splitbyspace(input("Please enter the data ('A' for ace, 'E' for error and 'C' for continuous... all seperated by space): "))
+    positivenegativetotal = determinepositivenegativetotal(userinput)
+    total = positivenegativetotal[2]
+    negative = positivenegativetotal[1]
+    answer = percentage(total, negative, total)
+    return answer
+
+def findanswer(statchoice):
+    answer = 0
+    if statchoice == "H%":
+        answer = hittingpercentage()
+    elif statchoice == "S%":
+        answer = servepercentage()
+    return answer
+
+def printanswer(percentage):
     print(percentage, "%")
 
 # Main Code
 while(True):
-    statchoice = checkvalidity(input("What stat would you like? (Enter '?' to view choices): "))
-    if statchoice == True:
+    statchoice = input("What stat would you like? (Enter '?' to view choices): ")
+    statchoicevalidity = checkvalidity(statchoice)
+    if statchoicevalidity == True:
         break
     
-answer = statpercentage(splitbyspace(input("Please enter the data ('A' for ace, 'K' for kill, 'E' for error and 'C' for continuous... all seperated by space): ")))
-printdata(answer)
+answer = findanswer(statchoice)
+printanswer(answer)
     
 
     

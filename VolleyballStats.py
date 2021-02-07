@@ -47,6 +47,8 @@ def hittingpercentage():
     error = datavalues[1]
     global total
     total = datavalues[2]
+    global continuous
+    continuous = datavalues[3]
     answer = percentage(kill, error, total)
     return answer
 
@@ -65,19 +67,18 @@ def servepercentage():
     return answer
 
 def determinevalues(userinput):
-    userinput = userinput.upper()
     positive = 0
     negative = 0 
     continuous = 0
     total = 0
     for i in range(0, len(userinput)):
-        if userinput[i] == "K" or userinput[i] == "A":
+        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
             positive = positive + 1
             total = total + 1
-        elif userinput[i] == "E":
+        elif userinput[i].upper() == "E":
             negative = negative + 1
             total = total + 1
-        elif userinput[i] == "C":
+        elif userinput[i].upper() == "C":
             continuous = continuous + 1
             total = total + 1
     return positive, negative, total, continuous
@@ -88,15 +89,15 @@ def passingaverage():
     answer = average(datavalues)
     return answer
 
-def average(datavalues):
-    answer = round((sum(datavalues) / len(datavalues)), 2)
-    return answer
-    
 def turntointegers(userinput):
     integers = []
     for i in range (0, len(userinput)):
         integers.append(int(userinput[i]))
     return integers
+
+def average(datavalues):
+    answer = round((sum(datavalues) / len(datavalues)), 2)
+    return answer
 
 def splitbyspace(data):
     splitdata = data.split()

@@ -27,21 +27,14 @@ def checkvalidity(statchoice):
 def printavailableoptions(statsdata):
     for i in range (0, len(statsdata)):
                 print("Enter '", statsdata[i], "' for", statsdatanames[i], end = ". ")
-
-def determinepositivenegativetotal(userinput):
-    positive = 0
-    negative = 0 
-    total = 0
-    for i in range(0, len(userinput)):
-        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
-            positive = positive + 1
-            total = total + 1
-        elif userinput[i].upper() == "E":
-            negative = negative + 1
-            total = total + 1
-        elif userinput[i].upper() == "C":
-            total = total + 1
-    return positive, negative, total
+                
+def findanswer(statchoice):
+    answer = 0
+    if statchoice == "H%":
+        answer = hittingpercentage()
+    elif statchoice == "S%":
+        answer = servepercentage()
+    return answer
 
 def hittingpercentage():
     userinput = splitbyspace(input("Please enter the data ('K' for kill, 'E' for error and 'C' for continuous... all seperated by space): "))
@@ -60,24 +53,34 @@ def servepercentage():
     answer = percentage(total, negative, total)
     return answer
 
+def determinepositivenegativetotal(userinput):
+    positive = 0
+    negative = 0 
+    total = 0
+    for i in range(0, len(userinput)):
+        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
+            positive = positive + 1
+            total = total + 1
+        elif userinput[i].upper() == "E":
+            negative = negative + 1
+            total = total + 1
+        elif userinput[i].upper() == "C":
+            total = total + 1
+    return positive, negative, total
+
 def splitbyspace(data):
     splitdata = data.split()
     return splitdata
 
 def percentage(positive, negative, total):
-    percentage = ((positive - negative) / total) * 100
+    percentage = round((((positive - negative) / total) * 100), 2)
     return percentage
-
-def findanswer(statchoice):
-    answer = 0
-    if statchoice == "H%":
-        answer = hittingpercentage()
-    elif statchoice == "S%":
-        answer = servepercentage()
-    return answer
 
 def printanswer(percentage):
     print(percentage, "%")
+
+
+
 
 # Main Code
 while(True):

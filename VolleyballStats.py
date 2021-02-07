@@ -20,17 +20,13 @@ def checkvalidity(statchoice):
             validity = True
             print("You have picked to determine your: ", statsdatanames[i])
         elif statchoice == "?":
-            print("Enter 'S%' for serve percentage, and 'H%' for hitting percentage.")
+            printavailableoptions(statsdata)
             break
     return validity
 
-def percentage(positive, negative, total):
-    percentage = ((positive - negative) / total) * 100
-    return percentage
-
-def splitbyspace(data):
-    splitdata = data.split()
-    return splitdata
+def printavailableoptions(statsdata):
+    for i in range (0, len(statsdata)):
+                print("Enter '", statsdata[i], "' for", statsdatanames[i], end = ". ")
 
 def determinepositivenegativetotal(userinput):
     positive = 0
@@ -64,6 +60,14 @@ def servepercentage():
     answer = percentage(total, negative, total)
     return answer
 
+def splitbyspace(data):
+    splitdata = data.split()
+    return splitdata
+
+def percentage(positive, negative, total):
+    percentage = ((positive - negative) / total) * 100
+    return percentage
+
 def findanswer(statchoice):
     answer = 0
     if statchoice == "H%":
@@ -77,7 +81,7 @@ def printanswer(percentage):
 
 # Main Code
 while(True):
-    statchoice = input("What stat would you like? (Enter '?' to view choices): ")
+    statchoice = input("\nWhat stat would you like? (Enter '?' to view choices): ")
     statchoicevalidity = checkvalidity(statchoice)
     if statchoicevalidity == True:
         break

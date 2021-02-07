@@ -10,15 +10,15 @@ Created on Thu Feb  4 19:10:29 2021
 # Will McIntyre
 # Feb 4th, 2021
 
-statsdata = ["S%", "H%"]
-statsdatanames = ["Serving Percentage", "Hitting Percentage"]
+statsdata = ["S%", "H%", "PA"]
+statsdatanames = ["Serving Percentage", "Hitting Percentage", "Passing Average"]
 
 def checkvalidity(statchoice):
     validity = False
     for i in range (0, len(statsdata)):
         if statchoice == statsdata[i]:
             validity = True
-            print("You have picked to determine your: ", statsdatanames[i])
+            print("You have picked to determine your: "+ statsdatanames[i])
         elif statchoice == "?":
             printavailableoptions(statsdata)
             break
@@ -26,7 +26,7 @@ def checkvalidity(statchoice):
 
 def printavailableoptions(statsdata):
     for i in range (0, len(statsdata)):
-                print("Enter '", statsdata[i], "' for", statsdatanames[i], end = ". ")
+        print("Enter '" + statsdata[i] + "' for " + statsdatanames[i],end = ". ")
                 
 def findanswer(statchoice):
     answer = 0
@@ -34,6 +34,8 @@ def findanswer(statchoice):
         answer = hittingpercentage()
     elif statchoice == "S%":
         answer = servepercentage()
+    elif statchoice == "PA":
+        answer = passingaverage()
     return answer
 
 def hittingpercentage():
@@ -63,21 +65,38 @@ def servepercentage():
     return answer
 
 def determinevalues(userinput):
+    userinput = userinput.upper()
     positive = 0
     negative = 0 
     continuous = 0
     total = 0
     for i in range(0, len(userinput)):
-        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
+        if userinput[i] == "K" or userinput[i] == "A":
             positive = positive + 1
             total = total + 1
-        elif userinput[i].upper() == "E":
+        elif userinput[i] == "E":
             negative = negative + 1
             total = total + 1
-        elif userinput[i].upper() == "C":
+        elif userinput[i] == "C":
             continuous = continuous + 1
             total = total + 1
     return positive, negative, total, continuous
+
+def passingaverage():
+    userinput = splitbyspace(input("Please enter the data (3, 2, 1, 0 pass, all seperated by space): "))
+    datavalues = turntointegers(userinput)
+    answer = average(datavalues)
+    return answer
+
+def average(datavalues):
+    answer = round((sum(datavalues) / len(datavalues)), 2)
+    return answer
+    
+def turntointegers(userinput):
+    integers = []
+    for i in range (0, len(userinput)):
+        integers.append(int(userinput[i]))
+    return integers
 
 def splitbyspace(data):
     splitdata = data.split()
@@ -87,11 +106,13 @@ def percentage(positive, negative, total):
     percentage = round((((positive - negative) / total) * 100), 2)
     return percentage
 
-def printanswer(percentage, statchoice):
-    if statchoice.upper() == statsdata[0]: # Serving Percentage
-        print("Your", statsdatanames[0], "is:", percentage, "%, with:", ace, "aces,", error, "errors,", continuous, "continuous, and", total, "total serves.")
-    elif statchoice.upper() == statsdata[1]: # Hitting Percentage
-        print("Your", statsdatanames[1], "is:", percentage, "% with:", kill, "kills,", error, "errors,", continuous, "continuous and", total, "total swings.")
+def printanswer(answer, statchoice):
+    if statchoice == statsdata[0]: # Serving Percentage
+        print("Your", statsdatanames[0], "is:", answer, "%, with:", ace, "aces,", error, "errors,", continuous, "continuous, and", total, "total serves.")
+    elif statchoice == statsdata[1]: # Hitting Percentage
+        print("Your", statsdatanames[1], "is:", answer, "% with:", kill, "kills,", error, "errors,", continuous, "continuous and", total, "total swings.")
+    elif statchoice == statsdata[2]: # Passing Average
+        print("Your", statsdatanames[2], "is:", answer)
     
 
 

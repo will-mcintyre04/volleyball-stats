@@ -138,7 +138,7 @@ while(True):
     if statchoicevalidity:
         # Break loop if valid
         break
-    if statchoicevalidity == False and statchoice != "?":
+    elif statchoicevalidity == False and statchoice != "?":
         # If not valid, user must try again
         print("This stat type is not valid. Please enter '?' next time to learn which stats this program finds.")
 

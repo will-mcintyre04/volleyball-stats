@@ -44,7 +44,7 @@ def findanswer(statchoice):
 
 # Find hitting percentage, return percentage and also determine specific stats(kill, error, comtinuous, total)
 def hittingpercentage():
-    userinput = splitbyspace(input("Please enter the data ('K' for kill, 'E' for error and 'C' for continuous... all seperated by space): "))
+    userinput = splitbyspace(input("Please enter the data ('K' for kill, 'E' for error and 'C' for continuous... all seperated by space): ").upper())
     datavalues = determinevalues(userinput)
     global kill
     kill = datavalues[0]
@@ -59,7 +59,7 @@ def hittingpercentage():
 
 # Find serve percentage, return answer and also determine specific stats (ace, error, continuous, total)
 def servepercentage():
-    userinput = splitbyspace(input("Please enter the data ('A' for ace, 'E' for error and 'C' for continuous... all seperated by space): "))
+    userinput = splitbyspace(input("Please enter the data ('A' for ace, 'E' for error and 'C' for continuous... all seperated by space): ").upper())
     datavalues = determinevalues(userinput)
     global ace
     ace = datavalues[0]
@@ -79,13 +79,13 @@ def determinevalues(userinput):
     continuous = 0
     total = 0
     for i in range(0, len(userinput)):
-        if userinput[i].upper() == "K" or userinput[i].upper() == "A":
+        if userinput[i] == "K" or userinput[i] == "A":
             positive = positive + 1
             total = total + 1
-        elif userinput[i].upper() == "E":
+        elif userinput[i] == "E":
             negative = negative + 1
             total = total + 1
-        elif userinput[i].upper() == "C":
+        elif userinput[i] == "C":
             continuous = continuous + 1
             total = total + 1
     return positive, negative, total, continuous
@@ -132,14 +132,13 @@ def printanswer(answer, statchoice):
 # Infinite loop
 while(True):
     # Get user data, convert to uppercase
-    statchoice = input("\nWhat stat would you like? (Enter '?' to view choices): ")
-    statchoice = statchoice.upper()
+    statchoice = input("\nWhat stat would you like? (Enter '?' to view choices): ").upper()
     # Check validity of statchoice
     statchoicevalidity = checkvalidity(statchoice)
-    if statchoicevalidity == True:
+    if statchoicevalidity:
         # Break loop if valid
         break
-    if statchoicevalidity != True and statchoice != "?":
+    if statchoicevalidity == False and statchoice != "?":
         # If not valid, user must try again
         print("This stat type is not valid. Please enter '?' next time to learn which stats this program finds.")
 

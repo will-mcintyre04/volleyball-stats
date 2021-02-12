@@ -14,7 +14,7 @@ statsdata = ["S%", "H%", "PA"]
 statsdatanames = ["Serving Percentage", "Hitting Percentage", "Passing Average"]
 
 
-# Check is code is valid. If not, return validity as false. Also see if user has entered '?'
+# Check is code is valid. If not, return validity as false. If user enters '?', display possible statistics
 def checkvalidity(statchoice):
     validity = False
     for i in range (0, len(statsdata)):
@@ -138,6 +138,7 @@ while(True):
     if statchoicevalidity:
         # Break loop if valid
         break
+    # If statchoice is not valid, and is not a '?', tell user that the stat is not valid
     elif statchoicevalidity == False and statchoice != "?":
         # If not valid, user must try again
         print("This stat type is not valid. Please enter '?' next time to learn which stats this program finds.")

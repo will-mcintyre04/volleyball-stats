@@ -143,7 +143,7 @@ while(True):
         # If not valid, user must try again
         print("This stat type is not valid. Please enter '?' next time to learn which stats this program finds.")
 
-# Find answer
+# Find answer!
 answer = findanswer(statchoice)
 # Print answer as output of program
 printanswer(answer, statchoice)
